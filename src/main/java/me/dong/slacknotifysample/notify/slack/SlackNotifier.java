@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SlackNotifier {
 
+    // 1개의 알림자는 1개의 체널에만 알림을 주는게 맞지 않을까?? 너무 많은 체널을 알고 있으면 점점 더 복잡해지기 때문에....
+
     private final RestTemplate restTemplate;
 
     private final SlackProperties slackProperties;
@@ -35,18 +37,11 @@ public class SlackNotifier {
     비동기, 동기 각각 사용할 http client를 전달하도록?
     */
 
-    public void doNotify(String url, SlackMessage slackMessage) {
-        log.info("body : {}", slackMessage);
-        log.info("url : {}", url);
-//        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-//        headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-
-//        HttpEntity<String> request = new HttpEntity<>(body, headers);
-
+    private void doNotify(String url, SlackMessage slackMessage) {
         restTemplate.postForObject(url, slackMessage, String.class);
     }
 
-    public void doNotify(SlackMessage message) {
+    public void notifyTest(SlackMessage message) {
         doNotify(slackProperties.getWebHookUrlTest(), message);
     }
 }
