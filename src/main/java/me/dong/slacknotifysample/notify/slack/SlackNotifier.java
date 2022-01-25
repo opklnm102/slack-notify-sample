@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SlackNotifier {
 
+    // TODO: 이것도 참고해보자 - https://github.com/maricn/logback-slack-appender/blob/master/src/main/java/com/github/maricn/logback/SlackAppender.java
     // 1개의 알림자는 1개의 체널에만 알림을 주는게 맞지 않을까?? 너무 많은 체널을 알고 있으면 점점 더 복잡해지기 때문에....
 
     private final RestTemplate restTemplate;
@@ -41,7 +42,7 @@ public class SlackNotifier {
         restTemplate.postForObject(url, slackMessage, String.class);
     }
 
-    public void notifyTest(SlackMessage message) {
+    public void doNotify(SlackMessage message) {
         doNotify(slackProperties.getWebHookUrlTest(), message);
     }
 }
